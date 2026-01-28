@@ -7,6 +7,12 @@
     <meta name="description" content="Admin Dashboard - Manage Blog Posts">
     <title>Dashboard - Blog CMS</title>
     <link rel="stylesheet" href="admin.css">
+    <script>
+        // Immediate auth check before page renders
+        if (!localStorage.getItem('blog_cms_token')) {
+            window.location.replace('login.html');
+        }
+    </script>
 </head>
 
 <body class="dashboard-page">
