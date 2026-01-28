@@ -2,7 +2,8 @@ const API_CONFIG = {
   BASE_URL:
     window.location.hostname === "localhost"
       ? "http://localhost:5000"
-      : "https://my-blog-backend-production.up.railway.app",
+      : "https://my-blog-backend-production-0097.up.railway.app/
+",
 
   ENDPOINTS: {
     LOGIN: "/api/auth/login",
@@ -20,3 +21,4 @@ function getApiUrl(endpoint) {
 
 window.API_CONFIG = API_CONFIG;
 window.getApiUrl = getApiUrl;
+
