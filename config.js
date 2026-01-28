@@ -1,46 +1,33 @@
 /**
  * API Configuration
  * Centralized configuration for backend API endpoints
- * Supports local development and live production (Railway backend)
+ * Supports local development and production (Railway backend)
  */
 
 const API_CONFIG = {
-    // Detect environment
-    BASE_URL: window.location.hostname === 'localhost'
-        ? 'http://localhost:5000'                  // Local development backend
-        : 'https://my-blog-backend.up.railway.app', // Production backend URL
+  BASE_URL:
+    window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://my-blog-backend.up.railway.app",
 
-    // API endpoints
-    ENDPOINTS: {
-        // Authentication
-        LOGIN: '/api/auth/login',
-        REGISTER: '/api/auth/register', // optional if you have register
+  ENDPOINTS: {
+    // Auth
+    LOGIN: "/api/auth/login",
+    REGISTER: "/api/auth/register",
 
-        // Posts
-        POSTS: '/api/posts',
-        POST_BY_ID: (id) => `/api/posts/${id}`,
-        CREATE_POST: '/api/posts/create', // if route exists
-        UPLOAD_IMAGE: '/api/posts/upload', // if using multer
-    }
+    // Posts
+    POSTS: "/api/posts",
+    POST_BY_ID: (id) => `/api/posts/${id}`,
+    CREATE_POST: "/api/posts",
+    UPLOAD_IMAGE: "/api/posts/upload"
+  }
 };
 
-/**
- * Helper function to get full API URL
- * @param {string} endpoint - endpoint path (e.g., API_CONFIG.ENDPOINTS.POSTS)
- * @returns {string} full URL for API call
- */
-const getApiUrl = (endpoint) => `${API_CONFIG.BASE_URL}${endpoint}`;
+// Helper to build full API URL
+function getApiUrl(endpoint) {
+  return `${API_CONFIG.BASE_URL}${endpoint}`;
+}
 
-/**
- * Example usage:
- * 
- * // Fetch all posts
- * fetch(getApiUrl(API_CONFIG.ENDPOINTS.POSTS))
- *   .then(res => res.json())
- *   .then(data => console.log(data));
- * 
- * // Fetch post by ID
- * fetch(getApiUrl(API_CONFIG.ENDPOINTS.POST_BY_ID('123456')))
- *   .then(res => res.json())
- *   .then(post => console.log(post));
- */
+// Export for global usage (if using normal script tag)
+window.API_CONFIG = API_CONFIG;
+window.getApiUrl = getApiUrl;
