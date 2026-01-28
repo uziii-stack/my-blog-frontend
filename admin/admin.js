@@ -37,8 +37,11 @@ function isAuthenticated() {
  * Protect routes - redirect to login if not authenticated
  */
 function protectRoute() {
-    if (!isAuthenticated()) {
-        window.location.href = 'login.html';
+    const token = getToken();
+    if (!token || token === 'undefined' || token === 'null') {
+        console.warn('⚠️ Session missing or invalid. Redirecting to login.');
+        removeToken();
+        window.location.replace('login.html');
     }
 }
 
@@ -110,6 +113,18 @@ async function apiRequest(endpoint, options = {}) {
             headers,
         });
 
+        // 🛡️ SECURITY FIX: Handle 401 Unauthorized (Expired or Invalid Token)
+        if (response.status === 401) {
+            console.error('🚫 Session expired or unauthorized. Logging out...');
+            removeToken();
+
+            // Avoid infinite loops if already on login page
+            if (!window.location.pathname.includes('login.html')) {
+                window.location.replace('login.html');
+            }
+            return null;
+        }
+
         const data = await response.json();
 
         if (!response.ok) {
@@ -118,6 +133,7 @@ async function apiRequest(endpoint, options = {}) {
 
         return data;
     } catch (error) {
+        console.error('📡 API Request Error:', error.message);
         throw error;
     }
 }
