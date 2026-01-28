@@ -8,6 +8,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🛡️ Login Engine Initialized');
 
+    // Safety Audit: Ensure config.js loaded correctly
+    if (typeof API_CONFIG === 'undefined' || typeof getApiUrl === 'undefined') {
+        console.error('❌ Critical Error: config.js not found or failed to load.');
+        alert('Site configuration error. Please refresh the page or contact the administrator.');
+        return;
+    }
+
     const loginForm = document.getElementById('loginForm');
     const loginBtn = document.getElementById('loginBtn');
     const errorMessage = document.getElementById('errorMessage');
