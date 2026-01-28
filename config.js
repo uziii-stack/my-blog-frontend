@@ -2,8 +2,7 @@ const API_CONFIG = {
   BASE_URL:
     window.location.hostname === "localhost"
       ? "http://localhost:5000"
-      : "https://my-blog-backend-production-0097.up.railway.app/
-",
+      : "https://my-blog-backend-production-0097.up.railway.app", // remove newline inside quotes
 
   ENDPOINTS: {
     LOGIN: "/api/auth/login",
@@ -19,6 +18,6 @@ function getApiUrl(endpoint) {
   return `${API_CONFIG.BASE_URL}${endpoint}`;
 }
 
+// Export globally for frontend scripts
 window.API_CONFIG = API_CONFIG;
 window.getApiUrl = getApiUrl;
-
