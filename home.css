@@ -3,13 +3,13 @@
  * Design System & Layout
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 :root {
     /* Color Palette */
-    --primary-color: #6366f1;
-    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-    --secondary-color: #a855f7;
+    --primary-color: #00ceac;
+    --primary-gradient: linear-gradient(90deg, #00ceac 0%, #36397e 100%);
+    --secondary-color: #36397e;
     --dark-bg: #0f172a;
     --card-bg: rgba(30, 41, 59, 0.7);
     --text-white: #f8fafc;
@@ -32,7 +32,7 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: var(--dark-bg);
     color: var(--text-white);
     line-height: 1.6;
@@ -88,6 +88,7 @@ img {
     font-size: 1.8rem;
     font-weight: 700;
     background: var(--primary-gradient);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
