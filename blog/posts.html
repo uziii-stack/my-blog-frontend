@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our latest blog posts on technology, design, and lifestyle.">
+    <title>Blog - Latest Posts | Uzair’s BlogHub</title>
+
+    <!-- Modern Styling -->
+    <link rel="stylesheet" href="../home.css">
+    <link rel="stylesheet" href="blog.css">
+
+    <!-- Font Awesome (v6.5.1) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="posts-listing-page">
+
+    <!-- STICKY NAVBAR -->
+    <nav class="navbar scrolled">
+        <div class="container">
+            <div class="nav-logo">
+                <a href="../index.html">
+                    <h1>Uzair’s BlogHub</h1>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="posts.html" class="active">Blog</a></li>
+                <li><a href="https://uzairbaig.netlify.app/" target="_blank">Portfolio</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- BLOG HEADER -->
+    <header class="blog-simple-header">
+        <div class="container">
+            <div class="header-content">
+                <h1>Our Blog</h1>
+                <p>Latest stories, technical insights, and creative ideas.</p>
+            </div>
+            <!-- SEARCH BAR -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="postSearch" placeholder="Search articles by title or category...">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="blog-main-content">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Fetching amazing posts...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <div class="error-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <p class="error-message">Oops! Something went wrong.</p>
+                <button onclick="loadPosts()" class="btn btn-primary">Try Again</button>
+            </div>
+
+            <!-- Posts Grid -->
+            <div id="postsGrid" class="posts-grid" style="display: none;">
+                <!-- Modern cards will be injected here by blog.js -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon"><i class="fas fa-feather"></i></div>
+                <h2>No Posts Yet</h2>
+                <p>Check back soon for new content!</p>
+            </div>
+
+            <!-- Pagination / Load More -->
+            <div class="blog-pagination">
+                <button id="loadMoreBtn" class="btn btn-secondary">Load More articles</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="blog-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>Uzair’s BlogHub CMS</h2>
+                    <p>&copy; 2026 All rights reserved.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.8;">Powered by <strong>Muhammad Uzair
+                            Baig</strong></p>
+                    <p style="font-size: 0.85rem; opacity: 0.8;">Made with <span style="color: #ef4444;">❤</span> by
+                        Uzair</p>
+                </div>
+                <div class="footer-contact">
+                    <p>Click here to visit: <a href="https://uzairbaig.netlify.app/" target="_blank">My Portfolio</a>
+                    </p>
+                    <p>Email: <a href="mailto:uzairbaig040@gmail.com">uzairbaig040@gmail.com</a></p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://linkedin.com/in/uzairbaig" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/uzairbaig" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://twitter.com/uzairbaig" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../config.js"></script>
+    <!-- We'll add custom search logic here -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('postSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const cards = document.querySelectorAll('.post-card');
+
+                    cards.forEach(card => {
+                        const title = card.querySelector('.post-card-title').textContent.toLowerCase();
+                        const category = card.querySelector('.post-card-category').textContent.toLowerCase();
+
+                        if (title.includes(searchTerm) || category.includes(searchTerm)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Check if all cards are hidden
+                    const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+                    const emptyState = document.getElementById('emptyState');
+                    if (visibleCards.length === 0 && cards.length > 0) {
+                        emptyState.style.display = 'block';
+                    } else {
+                        emptyState.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="blog.js"></script>
+    <script src="../home.js"></script>
+</body>
+
+</html>

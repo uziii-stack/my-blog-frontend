@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edit Blog Post">
+    <title>Edit Post - Blog CMS</title>
+    <link rel="stylesheet" href="admin.css">
+    <script>
+        // Immediate auth check before page renders
+        if (!localStorage.getItem('blog_cms_token')) {
+            window.location.replace('login.html');
+        }
+    </script>
+</head>
+
+<body class="edit-post-page">
+    <!-- Navigation -->
+    <nav class="admin-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>Blog CMS Admin</h2>
+            </div>
+            <div class="nav-actions">
+                <a href="dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+                <button id="logoutBtn" class="btn btn-logout">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="form-main">
+        <div class="form-container">
+            <h1>Edit Blog Post</h1>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <p>Loading post...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <p class="error-message"></p>
+            </div>
+
+            <form id="editPostForm" class="post-form" style="display: none;" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Post Title *</label>
+                    <input type="text" id="title" name="title" placeholder="Enter post title" required maxlength="200">
+                    <span class="form-hint">Maximum 200 characters</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <input type="text" id="category" name="category" placeholder="e.g., Technology, Lifestyle, Travel"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Featured Image</label>
+                    <div id="currentImage" class="current-image"></div>
+                    <input type="file" id="image" name="image" accept="image/*">
+                    <span class="form-hint">Upload a new image to replace the current one</span>
+                    <div id="imagePreview" class="image-preview"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">Content *</label>
+                    <textarea id="content" name="content" rows="15" placeholder="Write your blog post content here..."
+                        required></textarea>
+                    <span class="form-hint">Use line breaks for paragraphs</span>
+                </div>
+
+                <div id="formErrorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+
+                <div class="form-actions">
+                    <a href="dashboard.html" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                        <span class="btn-text">Update Post</span>
+                        <span class="btn-loader" style="display: none;">Updating...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Include config and admin script -->
+    <script src="../config.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

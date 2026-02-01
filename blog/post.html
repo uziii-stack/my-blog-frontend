@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read our latest blog post">
+    <meta property="og:type" content="article">
+    <title>Blog Post - Uzair’s BlogHub</title>
+
+    <!-- Modern Styling -->
+    <link rel="stylesheet" href="../home.css">
+    <link rel="stylesheet" href="blog.css">
+
+    <!-- Font Awesome for Icons (v6.5.1) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="single-post-page">
+
+    <!-- STICKY NAVBAR -->
+    <nav class="navbar scrolled">
+        <div class="container">
+            <div class="nav-logo">
+                <a href="../index.html">
+                    <h1>Uzair’s BlogHub</h1>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="posts.html">Blog</a></li>
+                <li><a href="https://uzairbaig.netlify.app/" target="_blank">Portfolio</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- POST HERO SECTION -->
+    <header id="postHero" class="post-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div id="postCategory" class="post-category-badge">Category</div>
+                <h1 id="postTitle" class="post-title-display">Loading Post...</h1>
+                <div class="post-meta-display">
+                    <span id="postDate"><i class="far fa-calendar-alt"></i> Loading...</span>
+                    <span id="postAuthor"><i class="far fa-user"></i> Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS -->
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <ul class="breadcrumbs">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="posts.html">Blog</a></li>
+                <li id="breadcrumbActive" class="active">Post Title</li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- MAIN POST CONTENT -->
+    <main class="post-container">
+        <div class="container-narrow">
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state-full">
+                <div class="spinner"></div>
+                <p>Preparing the article for you...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state-full" style="display: none;">
+                <div class="error-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <p class="error-message">Oops! We couldn't find that post.</p>
+                <a href="posts.html" class="btn btn-primary">Back to Blog</a>
+            </div>
+
+            <!-- THE CONTENT ARTICLE -->
+            <article id="postContent" class="rich-content" style="display: none;">
+                <div id="postContentBody">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+
+                <!-- POST FOOTER / SHARE -->
+                <div class="post-end-section">
+                    <div class="post-tags">
+                        <span class="tag-label">Category:</span>
+                        <span id="postBottomCategory" class="post-tag">Technology</span>
+                    </div>
+                    <div class="post-share">
+                        <span>Share:</span>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <!-- NAVIGATION BUTTONS -->
+                <div class="post-navigation">
+                    <a href="posts.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> All Articles</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="blog-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>Uzair’s BlogHub</h2>
+                    <p>&copy; 2026 All rights reserved.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.8;">Powered by <strong>Muhammad Uzair
+                            Baig</strong></p>
+                    <p style="font-size: 0.85rem; opacity: 0.8;">Made with <span style="color: #ef4444;">❤</span> by
+                        Uzair</p>
+                </div>
+                <div class="footer-contact">
+                    <p>Click here to visit: <a href="https://uzairbaig.netlify.app/" target="_blank">My Portfolio</a>
+                    </p>
+                    <p>Email: <a href="mailto:uzairbaig040@gmail.com">uzairbaig040@gmail.com</a></p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://linkedin.com/in/uzairbaig" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/uzairbaig" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://twitter.com/uzairbaig" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../config.js"></script>
+    <script src="blog.js"></script>
+    <script src="../home.js"></script>
+</body>
+
+</html>

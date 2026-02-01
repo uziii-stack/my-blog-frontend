@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Manage Blog Posts">
+    <title>Dashboard - Blog CMS</title>
+    <link rel="stylesheet" href="admin.css">
+    <script>
+        // Immediate auth check before page renders
+        if (!localStorage.getItem('blog_cms_token')) {
+            window.location.replace('login.html');
+        }
+    </script>
+</head>
+
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="admin-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>Blog CMS Admin</h2>
+            </div>
+            <div class="nav-actions">
+                <a href="../blog/posts.html" class="btn btn-secondary" target="_blank">View Blog</a>
+                <button id="logoutBtn" class="btn btn-logout">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1>Blog Posts Dashboard</h1>
+                <a href="add-post.html" class="btn btn-primary">+ Add New Post</a>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <p>Loading posts...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <p class="error-message"></p>
+            </div>
+
+            <!-- Posts Table -->
+            <div id="postsTableContainer" class="table-container" style="display: none;">
+                <table class="posts-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="postsTableBody">
+                        <!-- Posts will be inserted here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <p>No blog posts yet. Create your first post!</p>
+                <a href="add-post.html" class="btn btn-primary">Create Post</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Delete Post?</h3>
+            <p>Are you sure you want to delete this post? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button id="cancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+                <button id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include config and admin script -->
+    <script src="../config.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>
