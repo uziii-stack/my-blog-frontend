@@ -8,9 +8,13 @@
     <title>Dashboard - Blog CMS</title>
     <link rel="stylesheet" href="admin.css">
     <script>
-        // Immediate auth check before page renders
+        // Quick initial check - full verification happens in admin.js
+        console.log('🔍 Dashboard page loading - checking for token...');
         if (!localStorage.getItem('blog_cms_token')) {
+            console.warn('⚠️ No token found, redirecting to login');
             window.location.replace('login.html');
+        } else {
+            console.log('🔑 Token found, proceeding to backend verification...');
         }
     </script>
 </head>
