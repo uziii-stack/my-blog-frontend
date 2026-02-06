@@ -1,4 +1,4 @@
-# 🎨 Cortellect Blogs - Premium Frontend Engine
+#  Blogs - Premium Frontend Engine
 
 High-performance, vanilla JavaScript blogging interface featuring a modern design system, glassmorphism, and recruiter-impressing UI/UX.
 
