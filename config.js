@@ -8,7 +8,7 @@ const API_CONFIG = {
     // Detect environment
     BASE_URL: window.location.hostname === 'localhost'
         ? 'http://localhost:5000'                  // Local development backend
-        : 'https://my-blog-backend-production-0097.up.railway.app', // Production backend URL
+        : 'https://my-blog-backend-phi.vercel.app', // Production backend URL
 
     // API endpoints
     ENDPOINTS: {
