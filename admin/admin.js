@@ -649,6 +649,7 @@ if (window.location.pathname.includes('add-post.html')) {
                 formData.append('title', title);
                 formData.append('category', category);
                 formData.append('content', content);
+                formData.append('published', 'true'); // Publish immediately on create
                 if (image) {
                     formData.append('image', image);
                 }
