@@ -528,6 +528,57 @@ if (window.location.pathname.includes('dashboard.html')) {
             }
         });
 
+        // Setup Change Password functionality
+        const changePasswordForm = document.getElementById('changePasswordForm');
+        if (changePasswordForm) {
+            const changePasswordBtn = document.getElementById('changePasswordBtn');
+            const passwordErrorElement = document.getElementById('passwordError');
+            const passwordSuccessElement = document.getElementById('passwordSuccess');
+
+            changePasswordForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Reset statuses
+                passwordErrorElement.style.display = 'none';
+                passwordSuccessElement.style.display = 'none';
+
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+
+                if (!currentPassword || !newPassword) {
+                    passwordErrorElement.style.display = 'block';
+                    passwordErrorElement.textContent = 'Please fill out both fields.';
+                    return;
+                }
+
+                // Show loading state
+                changePasswordBtn.disabled = true;
+                changePasswordBtn.querySelector('.btn-text').style.display = 'none';
+                changePasswordBtn.querySelector('.btn-loader').style.display = 'inline';
+
+                try {
+                    const response = await apiRequest(API_CONFIG.ENDPOINTS.CHANGE_PASSWORD, {
+                        method: 'POST',
+                        body: JSON.stringify({ currentPassword, newPassword })
+                    });
+
+                    // On success
+                    passwordSuccessElement.style.display = 'block';
+                    passwordSuccessElement.textContent = response.message || 'Password changed successfully.';
+                    changePasswordForm.reset();
+                } catch (error) {
+                    // On error (e.g invalid password or weak password constraint failure)
+                    passwordErrorElement.style.display = 'block';
+                    passwordErrorElement.textContent = error.message || 'Failed to update password. Please ensure it follows security constraints.';
+                } finally {
+                    // Reset button state
+                    changePasswordBtn.disabled = false;
+                    changePasswordBtn.querySelector('.btn-text').style.display = 'inline';
+                    changePasswordBtn.querySelector('.btn-loader').style.display = 'none';
+                }
+            });
+        }
+
         // Load posts on page load
         loadPosts();
     })(); // End initDashboard async function

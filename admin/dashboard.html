@@ -74,6 +74,28 @@
                 <p>No blog posts yet. Create your first post!</p>
                 <a href="add-post.html" class="btn btn-primary">Create Post</a>
             </div>
+
+            <!-- Change Password Section -->
+            <div class="dashboard-section" style="margin-top: 40px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <h2>Security Settings</h2>
+                <form id="changePasswordForm" style="max-width: 400px; margin-top: 20px;">
+                    <div id="passwordError" class="error-message" style="display: none; color: #dc2626; margin-bottom: 10px;"></div>
+                    <div id="passwordSuccess" class="success-message" style="display: none; color: #16a34a; margin-bottom: 10px;"></div>
+                    
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="currentPassword" style="display: block; margin-bottom: 5px; font-weight: 500;">Current Password</label>
+                        <input type="password" id="currentPassword" class="form-control" required style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 4px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="newPassword" style="display: block; margin-bottom: 5px; font-weight: 500;">New Password</label>
+                        <input type="password" id="newPassword" class="form-control" required placeholder="Min 8 chars, 1 uppercase, 1 number, 1 special char" style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 4px;">
+                    </div>
+                    <button type="submit" id="changePasswordBtn" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <span class="btn-text">Update Password</span>
+                        <span class="btn-loader" style="display: none;">Updating...</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </main>
 

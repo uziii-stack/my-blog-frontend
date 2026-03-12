@@ -16,6 +16,7 @@ const API_CONFIG = {
         LOGIN: '/api/auth/login',
         REGISTER: '/api/auth/register', // optional if you have register
         ME: '/api/auth/me', // verify token and get current user
+        CHANGE_PASSWORD: '/api/admin/change-password',
 
         // Posts
         POSTS: '/api/posts',
