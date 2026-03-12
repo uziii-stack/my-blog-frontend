@@ -66,7 +66,11 @@
 
                 <div class="form-actions">
                     <a href="dashboard.html" class="btn btn-secondary">Cancel</a>
-                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                    <button type="submit" id="submitDraftBtn" class="btn btn-draft-create" data-publish="false">
+                        <span class="btn-text">Save as Draft</span>
+                        <span class="btn-loader" style="display: none;">Saving...</span>
+                    </button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary" data-publish="true">
                         <span class="btn-text">Publish Post</span>
                         <span class="btn-loader" style="display: none;">Publishing...</span>
                     </button>

@@ -484,6 +484,7 @@ if (window.location.pathname.includes('dashboard.html')) {
             postsTableBody.innerHTML = '';
 
             posts.forEach(post => {
+                const isPublished = post.published === true;
                 const row = document.createElement('tr');
                 row.innerHTML = `
                 <td>
@@ -491,9 +492,17 @@ if (window.location.pathname.includes('dashboard.html')) {
                 </td>
                 <td class="post-title">${post.title}</td>
                 <td><span class="post-category">${post.category}</span></td>
+                <td>
+                    <span class="status-badge ${isPublished ? 'status-published' : 'status-draft'}">
+                        ${isPublished ? '✅ Published' : '📝 Draft'}
+                    </span>
+                </td>
                 <td class="post-date">${formatDate(post.createdAt || post.date)}</td>
                 <td class="table-actions">
                     <a href="edit-post.html?id=${post._id}" class="btn btn-secondary btn-sm">Edit</a>
+                    <button class="btn btn-sm ${isPublished ? 'btn-draft' : 'btn-publish'}" onclick="togglePublished('${post._id}', ${isPublished})">
+                        ${isPublished ? 'Unpublish' : 'Publish'}
+                    </button>
                     <button class="btn btn-danger btn-sm" onclick="openDeleteModal('${post._id}')">Delete</button>
                 </td>
             `;
@@ -527,6 +536,22 @@ if (window.location.pathname.includes('dashboard.html')) {
                 alert('Error deleting post: ' + error.message);
             }
         });
+
+        // Toggle publish/draft status
+        window.togglePublished = async (postId, currentlyPublished) => {
+            const action = currentlyPublished ? 'unpublish' : 'publish';
+            if (!confirm(`Are you sure you want to ${action} this post?`)) return;
+
+            try {
+                await apiRequest(API_CONFIG.ENDPOINTS.POST_BY_ID(postId), {
+                    method: 'PUT',
+                    body: JSON.stringify({ published: !currentlyPublished }),
+                });
+                loadPosts(); // Refresh the table
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        };
 
         // Setup Change Password functionality
         const changePasswordForm = document.getElementById('changePasswordForm');
@@ -622,6 +647,14 @@ if (window.location.pathname.includes('add-post.html')) {
             }
         });
 
+        // Track which button triggered the form
+        let publishValue = 'true'; // default: publish
+        addPostForm.querySelectorAll('[type="submit"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                publishValue = btn.getAttribute('data-publish') || 'true';
+            });
+        });
+
         // Form submission
         addPostForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -639,17 +672,22 @@ if (window.location.pathname.includes('add-post.html')) {
                 return;
             }
 
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.querySelector('.btn-text').style.display = 'none';
-            submitBtn.querySelector('.btn-loader').style.display = 'inline';
+            const isDraft = publishValue === 'false';
+            const activeBtn = isDraft
+                ? document.getElementById('submitDraftBtn')
+                : document.getElementById('submitBtn');
+
+            // Show loading state on clicked button
+            activeBtn.disabled = true;
+            activeBtn.querySelector('.btn-text').style.display = 'none';
+            activeBtn.querySelector('.btn-loader').style.display = 'inline';
 
             try {
                 const formData = new FormData();
                 formData.append('title', title);
                 formData.append('category', category);
                 formData.append('content', content);
-                formData.append('published', 'true'); // Publish immediately on create
+                formData.append('published', publishValue);
                 if (image) {
                     formData.append('image', image);
                 }
@@ -659,7 +697,7 @@ if (window.location.pathname.includes('add-post.html')) {
                     body: formData,
                 });
 
-                showSuccess('successMessage', 'Post created successfully!');
+                showSuccess('successMessage', isDraft ? 'Draft saved successfully!' : 'Post published successfully!');
 
                 // Reset form
                 addPostForm.reset();
