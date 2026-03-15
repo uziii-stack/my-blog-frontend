@@ -21,6 +21,7 @@ const API_CONFIG = {
         // Posts
         POSTS: '/api/posts',
         POST_BY_ID: (id) => `/api/posts/${id}`,
+        POST_BY_SLUG: (slug) => `/api/posts/${slug}`,
         CREATE_POST: '/api/posts/create', // if route exists
         UPLOAD_IMAGE: '/api/posts/upload', // if using multer
     }

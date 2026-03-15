@@ -141,7 +141,7 @@ if (window.location.pathname.includes('posts.html') || window.location.pathname.
         const card = document.createElement('article');
         card.className = 'post-card';
         card.onclick = () => {
-            window.location.href = `post.html?id=${post._id}`;
+            window.location.href = `post.html?slug=${post.slug || post._id}`;
         };
 
         const imageUrl = post.image
@@ -156,7 +156,7 @@ if (window.location.pathname.includes('posts.html') || window.location.pathname.
                 <p class="post-card-excerpt">${getExcerpt(post.content)}</p>
                 <div class="post-card-footer">
                     <span class="post-card-date">${formatDate(post.createdAt || post.date)}</span>
-                    <a href="post.html?id=${post._id}" class="post-card-link">Read More →</a>
+                    <a href="post.html?slug=${post.slug || post._id}" class="post-card-link">Read More →</a>
                 </div>
             </div>
         `;
@@ -175,10 +175,11 @@ if (window.location.pathname.includes('post.html') && !window.location.pathname.
     const errorState = document.getElementById('errorState');
     const postContent = document.getElementById('postContent');
 
-    // Get post ID from URL
+    // Get post ID or Slug from URL
+    const slug = getQueryParam('slug');
     const postId = getQueryParam('id');
 
-    if (!postId) {
+    if (!slug && !postId) {
         window.location.href = 'posts.html';
     }
 
@@ -191,7 +192,14 @@ if (window.location.pathname.includes('post.html') && !window.location.pathname.
             errorState.style.display = 'none';
             postContent.style.display = 'none';
 
-            const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.POST_BY_ID(postId)));
+            let response;
+            if (slug) {
+                // Fetch by slug using the new endpoint
+                response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.POST_BY_SLUG(slug)));
+            } else {
+                // Fallback to fetch by ID for backward compatibility
+                response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.POST_BY_ID(postId)));
+            }
 
             if (!response.ok) {
                 throw new Error('Failed to load post');
